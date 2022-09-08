@@ -2,6 +2,6 @@
 
 VERSION=0.0.17
 
-source "date"
+source "mydate"
 
 echo "hello world firstly"
