@@ -14,15 +14,17 @@ log() {
 
 [[ -z "$REF" ]] && REF=HEAD
 
+artifact="${VERSION}.tar.gz"
+
 run "sed -i '' -e \"s/^\(VERSION\=\).*/\1${VERSION#v}/\" ./first"
 run "git add first && git commit -m \"bump version to $VERSION\""
 run "git tag $VERSION $REF"
 run "git push origin master && git push --tags"
 run "sleep 3"
-run "rm -f $HOME/Downloads/${VERSION}.tar.gz"
-run "wget -P $HOME/Downloads/ https://github.com/gitqh/first/archive/${VERSION}.tar.gz"
+run "rm -f $HOME/Downloads/$artifact"
+run "wget -P $HOME/Downloads/ https://github.com/gitqh/first/archive/$artifact"
 
-checksum=$(run "shasum -a 256 $HOME/Downloads/${VERSION}.tar.gz | cut -d' ' -f1")
+checksum=$(run "shasum -a 256 $HOME/Downloads/$artifact | cut -d' ' -f1")
 
 (
     log 'Start to update homebrew-first...'
@@ -30,7 +32,7 @@ checksum=$(run "shasum -a 256 $HOME/Downloads/${VERSION}.tar.gz | cut -d' ' -f1"
     cd ../homebrew-first/
 
     git pull --rebase --autostash
-    sed -i '' -e "s:/v.*\":/$VERSION.tar.gz\":" -e "s:sha256 \".*\":sha256 \"$checksum\":" first.rb
+    sed -i '' -e "s:/v.*\":/$VERSION\":" -e "s:sha256 \".*\":sha256 \"$checksum\":" first.rb
 
     git diff
 
