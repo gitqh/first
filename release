@@ -14,7 +14,7 @@ log() {
 
 [[ -z "$REF" ]] && REF=HEAD
 
-run "sed -i '' -e \"s/^\(VERSION\=\).*/\1${VERSION#v}/\" ./gtb"
+run "sed -i '' -e \"s/^\(VERSION\=\).*/\1${VERSION#v}/\" ./first"
 run "git add first && git commit -m \"bump version to $VERSION\""
 run "git tag $VERSION $REF"
 run "git push origin master && git push --tags"
@@ -25,9 +25,9 @@ run "wget -P $HOME/Downloads/ https://github.com/gitqh/first/archive/${VERSION}.
 checksum=$(run "shasum -a 256 $HOME/Downloads/${VERSION}.tar.gz | cut -d' ' -f1")
 
 (
-    log 'Start to update homebrew-gtb...'
+    log 'Start to update homebrew-first...'
 
-    cd ../homebrew-gtb/
+    cd ../homebrew-first/
 
     git pull --rebase --autostash
     sed -i '' -e "s:/v.*\":/$VERSION\":" -e "s:sha256 \".*\":sha256 \"$checksum\":" first.rb
