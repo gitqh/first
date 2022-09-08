@@ -17,8 +17,6 @@ jobs:
           # Optional, defaults to homebrew/core
           tap: gitqh/first
           # Formula name, required
-          formula: FORMULA
-          # Optional, will be determined automatically
           tag: ${{github.ref}}
           # Optional, will be determined automatically
           revision: ${{github.sha}}
