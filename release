@@ -30,7 +30,7 @@ checksum=$(run "shasum -a 256 $HOME/Downloads/${VERSION}.tar.gz | cut -d' ' -f1"
     cd ../homebrew-first/
 
     git pull --rebase --autostash
-    sed -i '' -e "s:/v.*\":/$VERSION\":" -e "s:sha256 \".*\":sha256 \"$checksum\":" first.rb
+    sed -i '' -e "s:/v.*\":/$VERSION.tar.gz\":" -e "s:sha256 \".*\":sha256 \"$checksum\":" first.rb
 
     git diff
 
