@@ -2,6 +2,6 @@
 
 VERSION=0.0.12
 
-source "modules/date"
+source "include/date"
 
 echo "hello world firstly"
